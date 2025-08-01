@@ -15,11 +15,12 @@ spec:
       labels:
         app: myapp
     spec:
+      hostNetwork: true  # ✅ Required to expose directly on EC2 port
       containers:
         - name: backend-container
           image: elonerajeev/myapp-backend:v1
           ports:
             - containerPort: 5000
           envFrom:
-             - secretRef:
+            - secretRef:
                 name: backend-secret
