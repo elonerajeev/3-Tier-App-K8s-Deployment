@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  namespace: mern-app
+  labels:
+    app: myapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: backend-container
+          image: elonerajeev/myapp-backend:v1
+          ports:
+            - containerPort: 5000
+          envFrom:
+             - secretRef:
+                name: backend-secret
