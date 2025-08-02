@@ -8,27 +8,21 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 
-# Copy source files and build
+# Copy all source files and build
 COPY . .
 RUN npm run build
 
 # ----------- Stage 2: Serve with Nginx -----------
 FROM nginx:stable-alpine
 
-# Copy built React files from builder
-COPY --from=builder /app/build /usr/share/nginx/html
-
-# Optional: Add custom nginx config
-# COPY nginx.conf /etc/nginx/nginx.conf
-
-# Remove default nginx index page
+# Remove default nginx static content
 RUN rm -rf /usr/share/nginx/html/*
 
-# Copy the built files again after clearing
+# Copy React build from builder
 COPY --from=builder /app/build /usr/share/nginx/html
 
-# Expose port 80
+# Expose default HTTP port
 EXPOSE 80
 
-# Start nginx
+# Start nginx in foreground
 CMD ["nginx", "-g", "daemon off;"]
