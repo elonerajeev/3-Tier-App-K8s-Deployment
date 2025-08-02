@@ -19,10 +19,10 @@ spec:
       - name: frontend-container
         image: elonerajeev/myapp-frontend:v1
         ports:
-        - containerPort: 3000
+        - containerPort: 3000  # ✅ this is enough
         env:
-            - name: REACT_APP_BACKEND_URL
-              valueFrom:
-                secretKeyRef:
-                  name: frontend-secret
-                  key: REACT_APP_BACKEND_URL
+        - name: REACT_APP_BACKEND_URL
+          valueFrom:
+            secretKeyRef:
+              name: frontend-secret
+              key: REACT_APP_BACKEND_URL
