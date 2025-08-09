@@ -2,7 +2,7 @@
 //const backendDomin = "http://localhost:5000";
 //const backendDomin = "https://e-commerce-app-deployment-pipeline-1.onrender.com"
 const backendDomin =
-  process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+  process.env.REACT_APP_BACKEND_URL || "http://localhost:30081";
 
 const SummaryApi = {
   signUP: {

@@ -1,25 +1,41 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-deployment
+  name: backend
   namespace: mern-app
-  labels:
-    app: myapp
 spec:
   replicas: 2
+  revisionHistoryLimit: 5  # keeps old versions for rollback
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1       # 1 extra pod during update
+      maxUnavailable: 0 # no downtime
   selector:
     matchLabels:
-      app: myapp
+      app: backend
   template:
     metadata:
       labels:
-        app: myapp
+        app: backend
     spec:
       containers:
-        - name: backend-container
-          image: elonerajeev/myapp-backend:v1
+        - name: backend
+          image: elonerajeev/mern-backend:v3
           ports:
             - containerPort: 5000
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 15
+            periodSeconds: 20
           envFrom:
             - secretRef:
                 name: backend-secret

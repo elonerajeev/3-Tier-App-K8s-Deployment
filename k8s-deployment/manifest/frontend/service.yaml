@@ -4,10 +4,9 @@ metadata:
   name: frontend-service
   namespace: mern-app
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: myapp
   ports:
-  - port: 3000
-    targetPort: 3000
-    nodePort: 30080
+    - port: 80
+      targetPort: 80

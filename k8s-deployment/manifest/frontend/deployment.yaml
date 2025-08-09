@@ -7,6 +7,12 @@ metadata:
     app: myapp
 spec:
   replicas: 2
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   selector:
     matchLabels:
       app: myapp
@@ -17,12 +23,24 @@ spec:
     spec:
       containers:
       - name: frontend-container
-        image: elonerajeev/myapp-frontend:v1
+        image: elonerajeev/mern-frontend:v2
         ports:
-        - containerPort: 3000  # ✅ this is enough
+        - containerPort: 80
         env:
         - name: REACT_APP_BACKEND_URL
           valueFrom:
             secretKeyRef:
               name: frontend-secret
               key: REACT_APP_BACKEND_URL
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 15
+          periodSeconds: 20
