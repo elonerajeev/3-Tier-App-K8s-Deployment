@@ -2,7 +2,6 @@
 
 <div align="center">
 
-![Project Banner](https://img.shields.io/badge/Kubernetes-Enterprise%20Grade-blue?style=for-the-badge&logo=kubernetes)
 [![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)](https://kubernetes.io/)
 ![Docker](https://img.shields.io/badge/Container-Docker-2496ED?style=for-the-badge&logo=docker)
 ![Minikube](https://img.shields.io/badge/Local-Minikube-F7931E?style=for-the-badge&logo=kubernetes&logoColor=white)
